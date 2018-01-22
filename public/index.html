@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" sizes="128x128" href="../resources/png/sun-Clouds-png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
+</head>
+<body>
+    <main class="container">
+        <section class="row">
+            <article class="col-xs-12">
+                <input type="search" placeholder="city Name">
+            </article>
+        </section>
+
+
+        <section class="row">
+            <article class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
+                    <li><a data-toggle="tab" href="#signIn">SignIn</a></li>
+                </ul>
+                <div class="tab-content login">
+                    <div id="login" class="tab-pane fade in active">
+                        <button class="loginBtn loginBtn--google" id="googleLogin" onclick="googleLogIn()">
+                            Login with Google
+                        </button>
+                    </div>
+                    <div id="signIn" class="tab-pane fade">
+                    </div>
+                </div>
+            </article>
+        </section>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyABXb_4_4-jn90AgswDeGlLNTVT4sP99GI",
+        authDomain: "currentweather-app.firebaseapp.com",
+        databaseURL: "https://currentweather-app.firebaseio.com",
+        projectId: "currentweather-app",
+        storageBucket: "currentweather-app.appspot.com",
+        messagingSenderId: "678957324296"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
