@@ -13,26 +13,53 @@
     <main class="container">
         <section class="row">
             <article class="col-xs-12">
-                <input type="search" placeholder="city Name">
+                <div class="searchWeather flip-container" id="infoContainer" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flipper">
+                        <div class="front">
+                            <div id="mainPage" class="flex-column-center">
+                                <h1 id="titleSection" class="flex-column-center">Welcome to Current Weather App</h1>
+                                <div id="searchSection" class="flex-column-center">
+                                    <input type="text" placeholder="Search by city Name">
+                                    <button class="btn-lg btn-warning" onclick="getWeather()">Search!</button>
+                                </div>
+                                <div id="favoriteSection" class="flex-column-center"></div>
+                            </div>
+
+                            <div id="loginPage" class="flex-column-center" style="display:none;">
+                                <label>
+                                    <input id="emailField" type="email" name="Email" placeholder="...email...">
+                                </label>
+                                <label>
+                                    <input id="passwordField" type="password" name="Password" placeholder="...password...">
+                                </label>
+                                <label>
+                                    <button class="btn-lg btn-success" id="loginButton" onclick="emailAndPswLogin()">Login!</button>
+                                    <button class="btn-lg btn-primary" id="signInButton" onclick="emailAndPswSignIn()">Register!</button>
+                                    <button class="btn-lg btn-danger" id="cancel" onclick="cancelLogin()">Cancel</button>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <button class="btn-lg btn-warning" onclick="newSearch()">Back</button>
+                            <!-- back content -->
+                        </div>
+                    </div>
+
+
+                </div>
             </article>
         </section>
-
-
         <section class="row">
             <article class="col-xs-12">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#login">Login</a></li>
-                    <li><a data-toggle="tab" href="#signIn">SignIn</a></li>
-                </ul>
-                <div class="tab-content login">
-                    <div id="login" class="tab-pane fade in active">
-                        <button class="loginBtn loginBtn--google" id="googleLogin" onclick="googleLogIn()">
-                            Login with Google
-                        </button>
-                    </div>
-                    <div id="signIn" class="tab-pane fade">
-                    </div>
+                <div class="authentication">
+                    <button class="loginBtn loginBtn--google" id="googleLogin" onclick="googleLogIn()" style="display:none;">
+                        Login with Google
+                    </button>
+                    <button class="btn btn-default" id="wantLogin" onclick="wantLogin(this)" style="display:none;">Login with email</button>
+                    <button class="btn btn-default" id="wantSignIn" onclick="wantLogin(this)" style="display:none;">Create an account</button>
+                    <button class="btn-lg btn-danger" id="logOut" onclick="logOut()" style="display:none;">Logout</button>
                 </div>
+
             </article>
         </section>
 
