@@ -17,9 +17,10 @@
                     <div class="flipper">
                         <div class="front">
                             <div id="mainPage" class="flex-column-center">
-                                <h1 id="titleSection" class="flex-column-center">Welcome to Current Weather App</h1>
+                                <h1 id="titleLogout" class="flex-column-center">Welcome to Current Weather App</h1>
+                                <h4 id="titleLogin" class="flex-column-center"></h4>
                                 <div id="searchSection" class="flex-column-center">
-                                    <input type="text" placeholder="Search by city Name">
+                                    <input type="text" id='searchInput'placeholder="Search by city Name">
                                     <button class="btn-lg btn-warning" onclick="getWeather()">Search!</button>
                                 </div>
                                 <div id="favoriteSection" class="flex-column-center"></div>
@@ -42,6 +43,9 @@
                         <div class="back">
                             <button class="btn-lg btn-warning" onclick="newSearch()">Back</button>
                             <!-- back content -->
+                            <div class="cssload-container">
+                                <div class="cssload-whirlpool"></div>
+                            </div>
                         </div>
                     </div>
 

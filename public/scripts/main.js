@@ -76,20 +76,42 @@ function cancelLogin(){
     $('#mainPage').show();
 }
 function successfulLogOut(){
-        $('#logOut').hide();
-        $('#googleLogin, #wantLogin, #wantSignIn').show();
+        $('#logOut, #titleLogin').hide();
+        $('#googleLogin, #wantLogin, #wantSignIn, #titleLogout').show();
         $('#favoriteSection').html('Login for favorite feature');
 
 }
 function successfulLogin(){
-        $('#loginPage, #googleLogin, #wantLogin, #wantSignIn').hide();
-        $('#mainPage, #logOut').show();
+        $('#titleLogin').html(loginUserName);
+        $('#loginPage, #googleLogin, #wantLogin, #wantSignIn, #titleLogout').hide();
+        $('#mainPage, #logOut, #titleLogin').show();
         $('#favoriteSection').html('Carrusel with favorite cities');
-
+}
+function loginUserName(){
+   var user = firebase.auth().currentUser.email;
+   return "Hi! "+user+"<br> how are you today?";
 }
 function getWeather(){
-    document.getElementById("infoContainer").classList.add("flip");
+    var wantedCityName = $('#searchInput').val();
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + wantedCityName + "&units=metric" + "&APPID=0dc8a74ac1b4f4c84a7293ecabcd44da";
+    if (wantedCityName != ''){
+        $.getJSON(url, function(data){}).done(function(data){weatherJsonDone(data);}).fail(function(){weatherJsonFail();});
+    }else{
+        console.log('empty field');
+    }
+
 }
+function weatherJsonDone(data){
+    $('#searchInput').val('');
+    console.log(data);
+    console.log('done');
+    document.getElementById("infoContainer").classList.add("flip");
+
+}
+function weatherJsonFail(){
+        console.log('faild');
+}
+
 function newSearch(){
     document.getElementById("infoContainer").classList.remove("flip");
 }
