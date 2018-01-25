@@ -41,11 +41,11 @@
                             </div>
                         </div>
                         <div class="back">
-                            <button class="btn-lg btn-warning" onclick="newSearch()">Back</button>
                             <!-- back content -->
-                            <div class="cssload-container">
+                            <div id="myLoader" class="cssload-container">
                                 <div class="cssload-whirlpool"></div>
                             </div>
+                            <div class="container" id="weatherContentTarget"></div>
                         </div>
                     </div>
 
@@ -87,5 +87,30 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
     <script src="scripts/main.js"></script>
+    <script type="text/html" id="weatherInfoTemplate">
+        <div class="row">
+            <div class="col-xs-8">
+                <img class="weatherImg" src="resources/png/{{clouds}}">
+            </div>
+            <div class="col-xs-4 backButton">
+                <button class="btn-lg btn-warning" onclick="newSearch()">Back</button>
+            </div>
+        </div>
+        {{#weather}}
+        <div>{{main}} / {{description}}</div>
+        {{/weather}}
+
+        <div>{{name}}, {{#sys}}{{country}}{{/sys}}</div>
+
+        <div><img class="iconImg" src="resources/icons/time.jpg">{{base}} {{cod}}</div>
+        {{#main}}
+        <div><img class="iconImg" src="resources/icons/temp.jpg">Temperature: {{temp_max}} / {{temp_min}} °C</div>
+        <div><img class="iconImg" src="resources/icons/humidity.jpg">Humidity: {{humidity}} %</div>
+        <div><img class="iconImg" src="resources/icons/pressure.jpg">Pressure: {{pressure}} mbar</div>
+        {{/main}} {{#wind}}
+        <div><img class="iconImg" src="resources/icons/wind.jpg">Wind-speed: {{speed}} m/s</div>
+        {{/wind}}
+
+</script>
 </body>
 </html>

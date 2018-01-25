@@ -93,19 +93,56 @@ function loginUserName(){
 }
 function getWeather(){
     var wantedCityName = $('#searchInput').val();
-    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + wantedCityName + "&units=metric" + "&APPID=0dc8a74ac1b4f4c84a7293ecabcd44da";
-    if (wantedCityName != ''){
-        $.getJSON(url, function(data){}).done(function(data){weatherJsonDone(data);}).fail(function(){weatherJsonFail();});
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + wantedCityName + "&units=metric" + "&APPID=0dc8a74ac1b4f4c84a7293ecabcd44da";    if (wantedCityName != ''){
+        $.getJSON(url, function(data){
+            document.getElementById("infoContainer").classList.add("flip");
+        }).done(function(data){weatherJsonDone(data);}).fail(function(){weatherJsonFail();});
     }else{
         console.log('empty field');
     }
 
 }
+
+function getCurrentDay(data) {
+    var date = Date(Date.now());
+    //    console.log(date);
+    var b = date.split(" ");
+    var time = b[4].split(":");
+    time = time[0] + ":" + time[1];
+    //    console.log(time);
+    //        console.log(b);
+    var wantedDate = b[0] + "day " + b[2] + " " + b[1];
+    //    console.log(wantedDate);
+    data.base = wantedDate;
+    data.cod = time;
+}
+function getWeatherImg(data) {
+    var finalImg = "";
+    var b = data.cod.split(":");
+    var hour = b[0];
+//    if (7 < hour && hour < 19) {
+//        finalImg += "sun";
+//    } else {
+//        finalImg += "night";
+//    }
+    7<hour && hour <19 ? finalImg += "sun": finalImg += "night";
+    finalImg += "-" + data.weather[0].main;
+    data.clouds = finalImg + ".png";
+}
+function getAndFillTemplate(data) {
+    var template = $('#weatherInfoTemplate').html();
+    var displayContent = Mustache.render(template, data)
+    $('#weatherContentTarget').html(displayContent);
+    console.log('template working');
+}
 function weatherJsonDone(data){
+    $('#myLoader').hide();
     $('#searchInput').val('');
     console.log(data);
     console.log('done');
-    document.getElementById("infoContainer").classList.add("flip");
+    getCurrentDay(data);
+    getWeatherImg(data);
+    getAndFillTemplate(data);
 
 }
 function weatherJsonFail(){
@@ -113,7 +150,10 @@ function weatherJsonFail(){
 }
 
 function newSearch(){
+    $('#weatherContentTarget').html('');
     document.getElementById("infoContainer").classList.remove("flip");
+    $('#myLoader').show();
+
 }
 // END MAIN FUNTIONS
 

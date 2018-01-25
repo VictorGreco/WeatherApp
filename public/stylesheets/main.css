@@ -184,9 +184,18 @@ body{
     font-size: 17px;
     font-weight: bold;
 }
-
-
-
+.iconImg{
+    height:30px;
+    width: 30px;
+}
+.weatherImg{
+    width:100%;
+    height:auto;
+}
+.backButton{
+    margin-top: 2vh;
+    text-align: center;
+}
 
 
 
