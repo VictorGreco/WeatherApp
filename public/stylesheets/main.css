@@ -3,20 +3,16 @@
 .flip-container {
 	perspective: 1000px;
 }
-
-
 .flip-container, .front, .back,  .flipper {
     height:100%;
     width:100%;
 }
-
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
     position:relative;
 }
-
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
@@ -24,14 +20,12 @@
 	top: 0;
 	left: 0;
 }
-
 /* front pane, placed above back */
 .front {
 	z-index: 2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
 }
-
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
@@ -39,9 +33,6 @@
 .flip-container.flip .flipper {
 	transform: rotateY(180deg);
 }
-
-
-
 /*LEADER CSS OPEN SOURCE CODE*/
 .cssload-container{
 	position:relative;
@@ -185,8 +176,8 @@ body{
     font-weight: bold;
 }
 .iconImg{
-    height:30px;
-    width: 30px;
+    height:45px;
+	width: auto;
 }
 .weatherImg{
     width:100%;
@@ -196,7 +187,10 @@ body{
     margin-top: 2vh;
     text-align: center;
 }
-
+.infoText{
+	font-size: 20px;
+    font-weight: bold;
+}
 
 
 

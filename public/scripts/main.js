@@ -111,7 +111,7 @@ function getCurrentDay(data) {
     time = time[0] + ":" + time[1];
     //    console.log(time);
     //        console.log(b);
-    var wantedDate = b[0] + "day " + b[2] + " " + b[1];
+    var wantedDate = b[2] + " " + b[1];
     //    console.log(wantedDate);
     data.base = wantedDate;
     data.cod = time;
