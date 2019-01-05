@@ -1,172 +1,145 @@
+const firebaseAuth = firebase.auth();
 
-// START FIREBASE FUNCTIONS
-function googleLogIn(){
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
-    .then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      successfulLogin();
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-}
+const googleLogIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-function emailAndPswLogin(){
+    firebaseAuth.signInWithPopup(provider)
+        .then(result => {
+            let token = result.credential.accessToken;
+            let user = result.user;
+            successfulLogin();
+        }).catch(error => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            let email = error.email;
+            let credential = error.credential;
+        });
+};
+
+const emailAndPswLogin = () => {
     let email = $('#emailField').val();
     let password = $('#passwordField').val();
-    firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(successfulLogin)
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
-}
-function emailAndPswSignIn(){
+
+    firebaseAuth.signInWithEmailAndPassword(email, password)
+        .then(successfulLogin)
+        .catch(error => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+        });
+};
+
+const emailAndPswSignIn = () => {
     let email = $('#emailField').val();
     let password = $('#passwordField').val();
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(successfulLogin)
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
-}
-function logOut(){
-    firebase.auth().signOut()
-    .then(successfulLogOut)
-    .catch(function(error) {
-      // An error happened.
-    });
-}
-// END FIREBASE FUNCTIONS
 
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
+        .then(successfulLogin)
+        .catch(error => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+        });
+};
 
+const logOut = () => firebaseAuth.signOut().then(successfulLogOut);
 
-// START MAIN FUNCTIONS
-function unLoggedUserPage(){
+const unLoggedUserPage = () => {
     successfulLogOut();
+};
 
-}
-function loggedUserPage(){
+const loggedUserPage = () => {
     successfulLogin();
-}
-function wantLogin(button){
-//    console.log(button);
+};
+
+const wantLogin = button =>{
     button.id === 'wantLogin' ? ($('#signInButton').hide(),$('#loginButton').show()): '';
     button.id === 'wantSignIn' ? ($('#loginButton').hide(),$('#signInButton').show()): '';
     $('#mainPage').hide();
     $('#loginPage').show();
-}
-function cancelLogin(){
+};
+
+const cancelLogin = () => {
     $('#loginPage').hide();
     $('#mainPage').show();
-}
-function successfulLogOut(){
+};
+
+const successfulLogOut = () => {
         $('#logOut, #titleLogin').hide();
         $('#googleLogin, #wantLogin, #wantSignIn, #titleLogout').show();
         $('#favoriteSection').html('Login for favorite feature');
+};
 
-}
-function successfulLogin(){
+const successfulLogin = () => {
         $('#titleLogin').html(loginUserName);
         $('#loginPage, #googleLogin, #wantLogin, #wantSignIn, #titleLogout').hide();
         $('#mainPage, #logOut, #titleLogin').show();
         $('#favoriteSection').html('Carrusel with favorite cities');
-}
-function loginUserName(){
-   var user = firebase.auth().currentUser.email;
+};
+
+const loginUserName = () => {
+   let user = firebaseAuth.currentUser.email;
+
    return "Hi! "+user+"<br> how are you today?";
-}
-function getWeather(){
-    var wantedCityName = $('#searchInput').val();
-    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + wantedCityName + "&units=metric" + "&APPID=0dc8a74ac1b4f4c84a7293ecabcd44da";    if (wantedCityName != ''){
-        $.getJSON(url, function(data){
+};
+
+const getWeather = () => {
+    let wantedCityName = $('#searchInput').val();
+    let url = "https://api.openweathermap.org/data/2.5/weather?q=" + wantedCityName + "&units=metric" + "&APPID=0dc8a74ac1b4f4c84a7293ecabcd44da";
+    if (wantedCityName != '' ){
+        $.getJSON(url, data => {
             document.getElementById("infoContainer").classList.add("flip");
-        }).done(function(data){weatherJsonDone(data);}).fail(function(){weatherJsonFail();});
+        })
+        .done(data => weatherJsonDone(data))
+        .fail(() => console.log('faild'));
     }else{
         console.log('empty field');
     }
 
-}
+};
 
-function getCurrentDay(data) {
-    var date = Date(Date.now());
-    //    console.log(date);
-    var b = date.split(" ");
-    var time = b[4].split(":");
+const getCurrentDay = data => {
+    const date = Date(Date.now());
+    let b = date.split(" ");
+    let time = b[4].split(":");
+    let wantedDate = b[2] + " " + b[1];
+
     time = time[0] + ":" + time[1];
-    //    console.log(time);
-    //        console.log(b);
-    var wantedDate = b[2] + " " + b[1];
-    //    console.log(wantedDate);
     data.base = wantedDate;
     data.cod = time;
-}
-function getWeatherImg(data) {
-    var finalImg = "";
-    var b = data.cod.split(":");
-    var hour = b[0];
-//    if (7 < hour && hour < 19) {
-//        finalImg += "sun";
-//    } else {
-//        finalImg += "night";
-//    }
-    7<hour && hour <19 ? finalImg += "sun": finalImg += "night";
+};
+
+const getWeatherImg = data => {
+    let finalImg = "";
+    let b = data.cod.split(":");
+    let hour = b[0];
+
+    7 < hour && hour < 19 ? finalImg += "sun": finalImg += "night";
     finalImg += "-" + data.weather[0].main;
     data.clouds = finalImg + ".png";
-}
-function getAndFillTemplate(data) {
-    var template = $('#weatherInfoTemplate').html();
-    var displayContent = Mustache.render(template, data)
+};
+
+const getAndFillTemplate = data => {
+    const template = $('#weatherInfoTemplate').html();
+    const displayContent = Mustache.render(template, data);
+
     $('#weatherContentTarget').html(displayContent);
-    console.log('template working');
-}
-function weatherJsonDone(data){
+};
+
+const weatherJsonDone = data => {
     $('#myLoader').hide();
     $('#searchInput').val('');
-    console.log(data);
-    console.log('done');
     getCurrentDay(data);
     getWeatherImg(data);
     getAndFillTemplate(data);
+};
 
-}
-function weatherJsonFail(){
-        console.log('faild');
-}
-
-function newSearch(){
+const newSearch = () => {
     $('#weatherContentTarget').html('');
     document.getElementById("infoContainer").classList.remove("flip");
     $('#myLoader').show();
+};
 
-}
-// END MAIN FUNTIONS
+$(() => {
+    let user = firebaseAuth.currentUser;
 
-
-
-// START READY DOCUMENT
-$(function(){
-//    Global variables
-    let user = firebase.auth().currentUser;
-    if (user != null){
-        loggedUserPage();
-    }else{
-        unLoggedUserPage();
-    }
+    !!user ? loggedUserPage() : unLoggedUserPage();
 });
-// END READY DOCUMENT
