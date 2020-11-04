@@ -18,3 +18,4 @@ This project was so useful to better understand at the very begining how to fetc
 [Check the weather !](https://currentweather-app.firebaseapp.com/)
 
 ## Gallery
+<img src="./landing_page.png" alt="homepage" width="300"/> <img src="./search_done.png" alt="homepage" width="300"/> <img src="./login_user.png" alt="homepage" width="300"/>
