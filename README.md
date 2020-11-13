@@ -1,4 +1,4 @@
-# WeatherApp
+# weatherapp
 
 ## Introduction
 I started this project during the bootcamp.
